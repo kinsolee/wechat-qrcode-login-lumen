@@ -38,9 +38,13 @@ class QrcodeLoginController extends BaseController
             'uuid' => $uuid
         ], $expire_seconds / 60);
         return [
-            'qrcode_id'  => $uuid,
-            'qrcode_url' => $url,
-            'timeout'    => $expire_seconds
+            'errcode' => 0,
+            'errmsg'  => 'ok',
+            'data'    => [
+                'qrcode_id'  => $uuid,
+                'qrcode_url' => $url,
+                'timeout'    => $expire_seconds
+            ]
         ];
     }
 
