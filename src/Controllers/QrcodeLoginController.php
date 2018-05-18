@@ -30,7 +30,7 @@ class QrcodeLoginController extends BaseController
         $app = app('wechat.official_account');
         $uuid = (string)Uuid::generate();
         $expire_seconds = 1800;
-        $prefix = config('wechat.qr-login-prefix',"qr-login");
+        $prefix = config('wechat.qr-login-prefix', "qr-login");
         $result = $app->qrcode->temporary("{$prefix}:{$uuid}", $expire_seconds);
         $ticket = $result['ticket'] ?? '';
         $url = $app->qrcode->url($ticket);
@@ -47,7 +47,7 @@ class QrcodeLoginController extends BaseController
     public function status()
     {
         $uuid = Request::input('qrcode_id');
-        $prefix = config('wechat.qr-login-prefix',"qr-login");
+        $prefix = config('wechat.qr-login-prefix', "qr-login");
         $data = Cache::get("{$prefix}:{$uuid}");
         if (!$data) {
             return ['errcode' => -2, 'errmsg' => "二维码已超时"];
@@ -61,15 +61,18 @@ class QrcodeLoginController extends BaseController
             'oid' => $wx_info['openid'] ?? '',
             'exp' => Carbon::now()->addMinutes(config('jwt.ttl', 60))->timestamp,
         ];
+        $data = [];
         if (is_subclass_of($handler, QrcodeLoginHandlerInterface::class)) {
             /** @var QrcodeLoginHandlerInterface $handler_instance */
             $handler_instance = app($handler);
             $jwt_data = array_merge($jwt_data, $handler_instance->generateJwtPayload($wx_info));
+            $data = $handler_instance->statusDataAppend($wx_info);
+            $jwt = JWT::encode($jwt_data, config('jwt.secret', 'secret_key'));
+            $data['jwt'] = $jwt;
         }
-        $jwt = JWT::encode($jwt_data, config('jwt.secret', 'secret_key'));
         return [
             'errcode' => 0,
-            'jwt'     => $jwt,
+            'data'    => $data,
             'errmsg'  => 'ok'
         ];
     }

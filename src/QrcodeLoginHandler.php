@@ -29,4 +29,10 @@ class QrcodeLoginHandler implements QrcodeLoginHandlerInterface
     {
         return [];
     }
+
+
+    public function statusDataAppend($wx_info)
+    {
+        return [];
+    }
 }

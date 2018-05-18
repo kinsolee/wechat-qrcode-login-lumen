@@ -23,4 +23,6 @@ interface QrcodeLoginHandlerInterface
      * @return array
      */
     public function generateJwtPayload($wx_info);
+
+    public function statusDataAppend($wx_info);
 }
