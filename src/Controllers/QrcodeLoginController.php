@@ -29,7 +29,7 @@ class QrcodeLoginController extends BaseController
         /** @var Application $app */
         $app = app('wechat.official_account');
         $uuid = (string)Uuid::generate();
-        $expire_seconds = 1800;
+        $expire_seconds = config('wechat.qr-login-expire', 180);
         $prefix = config('wechat.qr-login-prefix', "qr-login");
         $result = $app->qrcode->temporary("{$prefix}:{$uuid}", $expire_seconds);
         $ticket = $result['ticket'] ?? '';

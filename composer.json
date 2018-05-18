@@ -12,5 +12,10 @@
             "name": "kinso",
             "email": "kinso@kinso.in"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Forchange\\Wechat\\QrcodeLogin": "src/"
+        }
+    }
 }

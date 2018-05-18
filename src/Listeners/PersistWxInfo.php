@@ -48,7 +48,8 @@ class PersistWxInfo
             $app = $reflectionProperty->getValue($server);
             $wx_info = $app->user->get($openid);
             $persist_data['wx_info'] = $wx_info;
-            Cache::put($event_key, $persist_data, 100);
+            $expire_seconds = config('wechat.qr-login-expire', 180);
+            Cache::put($event_key, $persist_data, $expire_seconds / 60);
             $handler = config('wechat.qrcode_login_handler', QrcodeLoginHandler::class);
             if (is_subclass_of($handler, QrcodeLoginHandlerInterface::class)) {
                 app($handler)->scanned($wx_info);
