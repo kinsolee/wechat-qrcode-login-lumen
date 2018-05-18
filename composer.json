@@ -2,7 +2,7 @@
     "name": "kinsolee/wechat-qrcode-login-lumen",
     "description": "wechat,login,qrcode,lumen",
     "require": {
-        "laravel/lumen": "^5.6",
+        "laravel/lumen-framework": "^5.6",
         "webpatser/laravel-uuid": "^3.0",
         "overtrue/laravel-wechat": "^4.0",
         "firebase/php-jwt": "^5.0"
