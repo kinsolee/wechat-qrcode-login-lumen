@@ -54,11 +54,11 @@ class QrcodeLoginController extends BaseController
         $prefix = config('wechat.qr-login-prefix', "qr-login");
         $data = Cache::get("{$prefix}:{$uuid}");
         if (!$data) {
-            return ['errcode' => -2, 'errmsg' => "二维码已超时"];
+            return ['errcode' => -2, 'errmsg' => "二维码已超时", 'data' => []];
         }
         $wx_info = $data['wx_info'] ?? [];
         if (!$wx_info) {
-            return ['errcode' => -1, 'errmsg' => '等待扫码'];
+            return ['errcode' => -1, 'errmsg' => '等待扫码', 'data' => []];
         }
         $handler = config('wechat.qrcode_login_handler', QrcodeLoginHandler::class);
         $jwt_data = [
