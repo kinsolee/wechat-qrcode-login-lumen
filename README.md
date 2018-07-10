@@ -47,6 +47,13 @@ class QrcodeLoginHandler implements QrcodeLoginHandlerInterface
             'sub' => $wx_info['unionid']
         ];
     }
+    public function statusDataAppend($wx_info)
+    {
+        return [
+            'domain' => env('DOMAIN', 'wx.pandateacher.com'),
+            'path'   => '/'
+        ];
+    }
 }
 ```
 
