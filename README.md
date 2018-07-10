@@ -98,6 +98,7 @@ QrcodeLoginController@status返回字段：
 
 >data里如需添加更多字段，可以实现QrcodeLoginHandlerInterface::statusDataAppend
 
+示例：
 ```json
 {
     "errcode":0,
